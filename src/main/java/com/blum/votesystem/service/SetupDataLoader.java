@@ -32,6 +32,9 @@ public class SetupDataLoader implements
     @Autowired
     private PrivilegeRepository privilegeRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -47,6 +50,16 @@ public class SetupDataLoader implements
                 readPrivilege, writePrivilege);
         createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
         createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
+
+        //Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+        //User user = new User();
+        //user.setFirstname("Test");
+        //user.setLastname("Test");
+        //user.setPassword(passwordEncoder.encode("test"));
+        //user.setEmail("test@test.com");
+        //user.setRoles(Arrays.asList(adminRole));
+        //user.setEnabled(true);
+        //userRepository.save(user);
 
 
 

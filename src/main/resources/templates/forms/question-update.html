@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Update question</title>
+</head>
+<body>
+
+<form action="/questionupdate">
+    <input type="hidden" th:value="${questionId}" name="questionId"/>
+    <label for="text">Input your question:</label><br>
+    <input type="text" id="text" name="text"><br>
+
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

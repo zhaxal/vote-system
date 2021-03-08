@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<ul>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/profile">Profile</a></li>
+    <li><a href="/stats">Statistics</a></li>
+    <li><a href="/admin">Admin</a></li>
+</ul>
+
+</br>
+<label>First name</label></br>
+<a th:text="${user.getFirstname()}"></a></br>
+<label>Last name</label></br>
+<a th:text="${user.getLastname()}"></a></br>
+<label>Age</label></br>
+<a th:text="${user.getAge()}"></a></br>
+<label>Group name</label></br>
+<a th:text="${user.getGroupName()}"></a></br>
+<label>Interests</label></br>
+<a th:text="${user.getInterests()}"></a></br>
+
+
+<ul>
+    <li><a href="/useredit">Update</a></li>
+</ul>
+
+
+
 
 </body>
 </html>

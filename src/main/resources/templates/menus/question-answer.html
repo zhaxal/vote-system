@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table style="width:100%">
+    <tr>
+        <th>Question</th>
+        <th>Answers</th>
+        <th>Action</th>
+    </tr>
+    <tr data-th-each="question : ${questionList}">
+        <td data-th-text="${question.getText()}"></td>
+        <td>
+            <select>
+                <option data-th-each="answer : ${question.getAnswers()}" data-th-text="${answer.getText()}"></option>
+            </select>
+        </td>
+        <td>
+            <form action="/questiondelete">
+                <input type="hidden" th:value="${question.getId()}" name="questionId"/>
+                <input type="submit" value="delete"/>
+            </form>
+
+            <div> </div>
+
+            <form action="/questionupdateform">
+                <input type="hidden" th:value="${question.getId()}" name="questionId"/>
+                <input type="submit" value="update"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<ul>
+    <li><a href="/questionadd">Create new question</a></li>
+    <li><a href="/answerassignform">Assign answer to question</a></li>
+</ul>
+
+</br>
+
+<ul>
+    <li><a href="/answers"> Watch answer list</a></li>
+</ul>
+
+</body>
+</html>

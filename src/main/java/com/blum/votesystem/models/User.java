@@ -16,6 +16,7 @@ public class User {
     private String email;
     private String password;
     private String groupName;
+    private String interests;
     private boolean enabled;
     private int age;
 
@@ -27,6 +28,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_answers",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "answer_id", referencedColumnName = "id"))
+    private Collection<Answer> answers;
 
     public void setId(Long id) {
         this.id = id;
@@ -64,6 +74,9 @@ public class User {
         this.lastname = lastname;
     }
 
+    public void setInterests(String interests) {
+        this.interests = interests;
+    }
 
     public Long getId() {
         return id;
@@ -107,6 +120,11 @@ public class User {
     @Column(name = "lastname", nullable = false, length = 30)
     public String getLastname() {
         return lastname;
+    }
+
+    @Column(name = "interests", nullable = false, length = 100)
+    public String getInterests() {
+        return interests;
     }
 
     @Override

@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example</title>
+    <title>Home page</title>
 </head>
 <body>
-<h1>Welcome!</h1>
+<ul>
+    <li><a href="/home">Home</a></li>
+    <li><a href="/profile">Profile</a></li>
+    <li><a href="/stats">Statistics</a></li>
+    <li><a href="/admin">Admin</a></li>
+</ul>
 
-<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+
 </body>
 </html>

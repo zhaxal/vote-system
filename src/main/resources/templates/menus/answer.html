@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table style="width:100%">
+    <tr>
+        <th>Answers</th>
+        <th>Action</th>
+    </tr>
+    <tr data-th-each="answer : ${answerList}">
+        <td data-th-text="${answer.getText()}"></td>
+        <td>
+            <form action="/answerdelete">
+                <input type="hidden" th:value="${answer.getId()}" name="answerId"/>
+                <input type="submit" value="delete"/>
+            </form>
+
+            <div> </div>
+
+            <form action="/answerupdateform">
+                <input type="hidden" th:value="${answer.getId()}" name="answerId"/>
+                <input type="submit" value="update"/>
+            </form>
+
+        </td>
+    </tr>
+</table>
+
+</br>
+
+<ul>
+    <li><a href="/answeradd">Create new answer</a></li>
+</ul>
+
+</br>
+
+<ul>
+    <li><a href="/questionsanswers"> Watch question list</a></li>
+</ul>
+
+
+
+</body>
+</html>
