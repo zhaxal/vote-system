@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/voteprocess" th:object="${list}">
+    <div data-th-each="question : ${questionList}">
+        <fieldset>
+            <h5 data-th-text="${question.getText()}" ></h5>
+            <select th:field="*{answers}">
+                <option th:value="${answer.getId()}" data-th-each="answer : ${question.getAnswers()}" data-th-text="${answer.getText()}"></option>
+            </select>
+        </fieldset>
+    </div><br>
+    <button type="reset" class="btn btn-default">Reset</button>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

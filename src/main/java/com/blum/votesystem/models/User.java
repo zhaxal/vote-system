@@ -54,6 +54,10 @@ public class User {
         this.password = password;
     }
 
+    public void setAnswers(Collection<Answer> answers) {
+        this.answers = answers;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -76,6 +80,10 @@ public class User {
 
     public void setInterests(String interests) {
         this.interests = interests;
+    }
+
+    public Collection<Answer> getAnswers() {
+        return answers;
     }
 
     public Long getId() {

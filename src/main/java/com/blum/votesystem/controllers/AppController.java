@@ -1,10 +1,13 @@
 package com.blum.votesystem.controllers;
 
+import com.blum.votesystem.AnswerList;
 import com.blum.votesystem.component.IAuthenticationFacade;
 import com.blum.votesystem.models.Answer;
 import com.blum.votesystem.models.Question;
+import com.blum.votesystem.models.Role;
 import com.blum.votesystem.models.User;
 import com.blum.votesystem.service.QuestionAnswerService;
+import com.blum.votesystem.service.RoleService;
 import com.blum.votesystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -27,7 +30,8 @@ public class AppController {
     @Autowired
     private QuestionAnswerService questionAnswerService;
 
-
+    @Autowired
+    private RoleService roleService;
 
     @Autowired
     private IAuthenticationFacade authenticationFacade;
@@ -96,6 +100,21 @@ public class AppController {
         return "profile";
     }
 
+    @GetMapping("/users")
+    public String showUsers(Model model) {
+        try {
+            ArrayList<User> userList = userService.getUserList().get();
+
+            model.addAttribute("userList",userList);
+
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return "menus/user";
+    }
+
+
     @GetMapping("/questionupdateform")
     public String showUpdateQuestion(@RequestParam(name="questionId") long questionId, Model model) {
         model.addAttribute("questionId",questionId);
@@ -120,6 +139,7 @@ public class AppController {
         questionAnswerService.deleteQuestion(questionId);
         return new RedirectView("questionsanswers");
     }
+
 
     @GetMapping( "/answercreate")
     public RedirectView createAnswer(@RequestParam(name="text") String text) {
@@ -172,6 +192,72 @@ public class AppController {
 
 
         return new RedirectView("profile");
+    }
+
+    @GetMapping("/updateuser")
+    public RedirectView updateUser(@RequestParam(name="userId") long userId,
+                                   @RequestParam(name="role") String roleName){
+
+        userService.updateUserRoles(userId,roleName);
+        return new RedirectView("users");
+    }
+
+    @GetMapping("/userupdateform")
+    public String showUpdateUser(@RequestParam(name="userId") long userId, Model model) {
+        try {
+
+            User user = userService.getUser(userId).get();
+            ArrayList<Role> roleList = roleService.getAllRoles().get();
+            model.addAttribute("roleList",roleList);
+            model.addAttribute("userId",userId);
+            model.addAttribute("user",user);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return "forms/user-update";
+    }
+
+    @GetMapping("/voteform")
+    public String showVoteForm(Model model){
+        ArrayList<Question> questionsList = null;
+        try {
+            questionsList = questionAnswerService.getQuestionList().get();
+            model.addAttribute("questionList",questionsList);
+            model.addAttribute("list",new AnswerList());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return "menus/vote";
+    }
+
+    @GetMapping("/voteprocess")
+    public RedirectView voteProcess(@ModelAttribute AnswerList answerList){
+
+        try {
+            String email = getCurrentUsername().get();
+            userService.assignAnswers(answerList, email);
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return new RedirectView("home");
+    }
+
+    @GetMapping("/home")
+    public String showHome(Model model){
+
+        try {
+            ArrayList<Question> questionList = questionAnswerService.getQuestionList().get();
+            model.addAttribute("questionList",questionList);
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        return "home";
     }
 
     @Async

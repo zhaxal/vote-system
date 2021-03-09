@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin").hasAuthority("WRITE_PRIVILEGE")
                 .antMatchers("/home").hasAuthority("READ_PRIVILEGE")
+                .antMatchers("/profile").hasAuthority("READ_PRIVILEGE")
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>User update</title>
+</head>
+<body>
+
+<form action="/updateuser">
+    <input type="hidden" th:value="${userId}" name="userId"/>
+    <label>Updating:</label></br>
+
+
+    <label for="role">Choose role:</label><br>
+    <select id="role" name="role">
+        <option data-th-each="role : ${roleList}" data-th-text="${role.getName()}"></option>
+    </select>
+
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

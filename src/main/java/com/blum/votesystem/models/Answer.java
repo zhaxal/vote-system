@@ -2,6 +2,7 @@ package com.blum.votesystem.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -13,7 +14,7 @@ public class Answer {
     private Long id;
     private String text;
 
-    @ManyToMany(mappedBy = "answers")
+    @ManyToMany(mappedBy = "answers", fetch = FetchType.EAGER)
     private Collection<User> users;
 
 

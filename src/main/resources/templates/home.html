@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Home page</title>
 </head>
@@ -7,14 +9,44 @@
 <ul>
     <li><a href="/home">Home</a></li>
     <li><a href="/profile">Profile</a></li>
-    <li><a href="/stats">Statistics</a></li>
     <li><a href="/admin">Admin</a></li>
 </ul>
+
+
+</br>
+
+<ul>
+    <li><a href="/voteform">Start voting</a></li>
+</ul>
+
+</br>
+
+<table style="width:100%">
+    <tr>
+        <th>Question</th>
+        <th>Answers/Stats</th>
+    </tr>
+    <tr data-th-each="question : ${questionList}">
+        <td data-th-text="${question.getText()}">Jill</td>
+        <td>
+            <div data-th-each="answer : ${question.getAnswers()}">
+                    <a data-th-text="${answer.getText()}"></a></br>
+                    <a>Answered:</a>
+                        <div data-th-each="users : ${answer.getUsers()}" >
+                        <a data-th-text="${users.getFirstname()}"></a></br>
+                    </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+</br>
+
+</br>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
-
 
 </body>
 </html>
